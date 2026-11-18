@@ -1,0 +1,311 @@
+#sample app.py 
+# from config import Config
+# import mysql.connector as sql
+# import random
+# DBconfig=Config()
+
+# #we will first make connection with DB
+# def getConnectionWithDB():
+#   db_host=DBconfig.db_host
+#   db_port=DBconfig.db_port
+#   db_user=DBconfig.db_user
+#   db_password=DBconfig.db_password
+#   db_name=DBconfig.db_name
+#   try:
+#     connection=sql.connect(
+#       host=db_host,
+#       port=db_port,
+#       user=db_user,
+#       password=db_password,
+#       database=db_name
+#    )
+#     return connection
+#   except:
+#     return "Connection Failed"
+# #insert the data into the  table
+# def insertUserRecord(user_data):
+#   """Inserting user records"""
+#   name=user_data['name']
+#   email=user_data['email']
+#   password_hash=user_data['password_hash']
+#   connection=getConnectionWithDB()
+#   if connection=="Connection Failed":
+#     return False
+#   else:
+#     try:
+#         cursor=connection.cursor()
+#         cursor.execute(
+#         "INSERT INTO users(name,email,password_hash) values(%s,%s,%s)",(name,email,password_hash))
+#         connection.commit()
+#         cursor.close()
+#         connection.close()
+#         return True
+#     except:
+#        print("data cannot be inserted.")
+#        return False
+
+# #now let's define the data
+
+# # Define 10 user records
+# users_data = [
+#     {
+#         'name': 'Deepika',
+#         'email': 'deepika@example.com',
+#         'password_hash': 'hash001'
+#     },
+#     {
+#         'name': 'Ravi',
+#         'email': 'ravi@example.com',
+#         'password_hash': 'hash002'
+#     },
+#     {
+#         'name': 'Priya',
+#         'email': 'priya@example.com',
+#         'password_hash': 'hash003'
+#     },
+#     {
+#         'name': 'Arun',
+#         'email': 'arun@example.com',
+#         'password_hash': 'hash004'
+#     },
+#     {
+#         'name': 'Sneha',
+#         'email': 'sneha@example.com',
+#         'password_hash': 'hash005'
+#     },
+#     {
+#         'name': 'Kiran',
+#         'email': 'kiran@example.com',
+#         'password_hash': 'hash006'
+#     },
+#     {
+#         'name': 'Anjali',
+#         'email': 'anjali@example.com',
+#         'password_hash': 'hash007'
+#     },
+#     {
+#         'name': 'Rahul',
+#         'email': 'rahul@example.com',
+#         'password_hash': 'hash008'
+#     },
+#     {
+#         'name': 'Meena',
+#         'email': 'meena@example.com',
+#         'password_hash': 'hash009'
+#     },
+#     {
+#         'name': 'Suresh',
+#         'email': 'suresh@example.com',
+#         'password_hash': 'hash010'
+#     },
+#     {
+#         'name': 'Sumanth',
+#         'email': 'Sumanth@gmail.com',
+#         'password_hash': 'hash011'
+#     },
+#     {
+#         'name': 'Rana naidu',
+#         'email': 'naidu@.com',
+#         'password_hash': 'hash012'
+#     },
+#     {
+#         'name': 'Rishikesh',
+#         'email': 'rishi@.com',
+#         'password_hash': 'hash013'
+#     }
+# ]
+
+# # Insert all 10 records
+# # for user in users_data:
+# #     result = insertUserRecord(user)
+# #     print(result)
+
+# def readUserRecords():
+#   connection = getConnectionWithDB()
+#   if connection == "Connection Failed":
+#     return False
+#   else:
+#     cursor = connection.cursor()
+#     cursor.execute("SELECT*from users")
+#     data = cursor.fetchall()
+#     records=[]
+#     for record in data:
+#         temp={}
+#     #   print(record)
+#         temp['id']=record[0]
+#         temp['name']=record[1]
+#         temp['email']=record[2]
+#         temp['password_hash']=record[3]
+#         temp['is_verified']=record[4]
+#         temp['created_at']=record[5]
+#         records.append(temp)
+#     cursor.close()
+#     connection.close()
+#     return records
+# #print(readUserRecords())
+
+# def readUserRecordbyEmail(user_data):
+#   email=user_data['email']
+#   connection = getConnectionWithDB()
+#   if connection=="Connection Failed":
+#     return False
+#   else:
+#     try:
+#         cursor=connection.cursor()
+#         cursor.execute("SELECT* FROM users WHERE email=%s",(email,))
+#         data=cursor.fetchone()
+#         # print(data)
+#         record={
+#         'id':data[0],
+#         'name':data[1],
+#         'email':data[2],
+#         'password_hash':data[3],
+#         'is_verified':data[4],
+#         'created_at':data[5]
+#         }
+#         return record
+#     except:
+#       cursor.close()
+#       connection.close()
+#       return "No Record"
+# #print(readUserRecordbyEmail())
+
+# def readUserRecordbyId(user_data):
+#   id=user_data['id']
+#   connection = getConnectionWithDB()
+#   if connection=="Connection Failed":
+#       return False
+#   else:
+#       try:
+#           cursor=connection.cursor()
+#           cursor.execute("SELECT* FROM users WHERE id=%s",(id,))
+#           data=cursor.fetchone()
+#           # print(data)
+#           record={
+#           'id':data[0],
+#           'name':data[1],
+#           'email':data[2],
+#           'password_hash':data[3],
+#           'is_verified':data[4],
+#           'created_at':data[5]
+#           }
+#           return record
+#       except:
+#         cursor.close()
+#         connection.close()
+#         return "No Record"
+#   #print(readUserRecordbyEmail())
+  
+  
+# #user_data={'email':'naidu@.com'}
+# #print(readUserRecordbyEmail(user_data))
+
+# #user_data={'id':7}
+# #print(readUserRecordbyId(user_data))
+
+# def updateNamebyIdorEmail(user_data):
+#    query_filter=""
+#    try:
+#       id=user_data['id']
+#       query_filter='id'
+#    except:
+#       email=user_data['email']
+#       query_filter='email'
+#    new_name=user_data['new_name']
+#    connection=getConnectionWithDB()
+#    if connection=="Connection Failed":
+#       return False
+#    else:
+#       cursor=connection.cursor()
+#       if query_filter=="id":
+#          query="UPDATE users SET name=%s WHERE id=%s"
+#          values=(new_name,id)
+#       elif query_filter=='email':
+#          query ="UPDATE users SET name=%s WHERE email=%s"
+#          values=(new_name,email)
+#       cursor.execute(query,values)
+#       connection.commit()
+#       cursor.close()
+#       connection.close()
+#       return True
+
+
+# def updatePasswordbyIdorEmail(user_data):
+#    query_filter=""
+#    try:
+#     id=user_data['id']
+#     query_filter='id'
+#    except:
+#     email=user_data['email']
+#     query_filter='email'
+#    new_password=user_data['new_password']
+#    connection=getConnectionWithDB()
+#    if connection=="Connection Failed":
+#     return False
+#    else:
+#     cursor=connection.cursor()
+#     if query_filter=="id":
+#         query="UPDATE users SET password_hash=%s WHERE id=%s"
+#         values=(new_password,id)
+#     elif query_filter=='email':
+#         query ="UPDATE users SET password_hash=%s WHERE email=%s"
+#         values=(new_password,email)
+#     cursor.execute(query,values)
+#     connection.commit()
+#     cursor.close()
+#     connection.close()
+#     return True
+
+# def updateVerifiedbyIdorEmail(user_data):
+#    query_filter=""
+#    try:
+#     id=user_data['id']
+#     query_filter='id'
+#    except:
+#     email=user_data['email']
+#     query_filter='email'
+#    verified=user_data['new_verified']
+#    connection=getConnectionWithDB()
+#    if connection=="Connection Failed":
+#     return False
+#    else:
+#         cursor=connection.cursor()
+#         if query_filter=="id":
+#             query="UPDATE users SET is_verified=%s WHERE id=%s"
+#             values=(verified,id)
+#         elif query_filter=='email':
+#             query ="UPDATE users SET is_verified=%s WHERE email=%s"
+#             values=(verified,email)
+#         cursor.execute(query,values)
+#         connection.commit()
+#         cursor.close()
+#         connection.close()
+#         return True
+   
+
+# def generateOTP():
+#    otp=random.randint(1000,9999)
+#    return otp
+# #print(generateOTP())
+
+# def sendOTPviaemail():
+#    #step1-->to whom we have to send otp
+#    #step2-->through which account we have to send otp
+#    #step3-->from gmail --> App password
+#    #step4-->Mail Compse
+#    #step5-->Mail send
+#    pass
+
+
+# user_data={'id':2,
+#            'new_name':'Charan Sai',
+#            'email':'ravi@example.com',
+#            'new_password':'admin1234',
+#            'new_verified':1}
+# #print(updatePasswordbyIdorEmail(user_data))
+# #print(updateNamebyIdorEmail(user_data))
+# #
+# #print(updateVerifiedbyIdorEmail(user_data))
+
+# # user_data={'email':'Sumanth@gmail.com','new_name':'SumanthJada'}
+# # print(updateNamebyIdorEmail(user_data))
